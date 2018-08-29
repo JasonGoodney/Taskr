@@ -16,9 +16,11 @@ class TaskDetailTableViewController: UITableViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var dueDatePicker: UIDatePicker!
     @IBOutlet weak var noteTextView: UITextView!
+    @IBOutlet weak var taskDueTextField: UITextField!
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,11 +32,15 @@ class TaskDetailTableViewController: UITableViewController {
 extension TaskDetailTableViewController {
     func updateView() {
         if isViewLoaded {
-            guard let task = task, let due = task.due else { return }
+            guard let task = task else { return }
             nameTextField.text = task.name
             noteTextView.text = task.note
-            datePicker.date = due
+            taskDueTextField.text = task.due?.stringValue()
         }
+        
+        tableView.tableFooterView = UIView()
+        setupDateTextField()
+        hideKeyboardOnTap()
     }
     
     func updateTask() {
@@ -54,6 +60,10 @@ extension TaskDetailTableViewController {
             TaskController.shared.add(dictionary: taskDictionary)
         }
     }
+    
+    func setupDateTextField() {
+        taskDueTextField.inputView = dueDatePicker
+    }
 }
 
 // MARK: - Actions
@@ -63,6 +73,12 @@ extension TaskDetailTableViewController {
         updateTask()
         
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
+        
+        dueDate = sender.date
+        taskDueTextField.text = dueDate?.stringValue()
     }
 }
 
@@ -80,6 +96,19 @@ extension TaskDetailTableViewController {
 extension TaskDetailTableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+    }
+}
+
+// MARK: - Hide Keyboard Tap Gesture
+extension UIViewController {
+    func hideKeyboardOnTap() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
     }
 }
 
