@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" rowHeight="64" id="o1U-72-8QR" customClass="TaskListTableViewCell" customModule="Taskr" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" rowHeight="64" id="o1U-72-8QR" customClass="ButtonTableViewCell" customModule="Taskr" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o1U-72-8QR" id="ZGZ-g3-dvN">
@@ -48,7 +48,7 @@
                                                     </constraints>
                                                     <state key="normal" title="Button"/>
                                                     <connections>
-                                                        <action selector="isCompleteButtonTapped:" destination="o1U-72-8QR" eventType="touchUpInside" id="8bd-h2-KGA"/>
+                                                        <action selector="buttonTapped:" destination="o1U-72-8QR" eventType="touchUpInside" id="8bd-h2-KGA"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -62,8 +62,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="isCompleteButton" destination="7Ec-cZ-5P3" id="7xa-hY-Oee"/>
-                                    <outlet property="taskNameLabel" destination="aNd-LF-5eW" id="vSp-qf-MaS"/>
+                                    <outlet property="completeButton" destination="7Ec-cZ-5P3" id="7xa-hY-Oee"/>
+                                    <outlet property="primaryLabel" destination="aNd-LF-5eW" id="vSp-qf-MaS"/>
                                     <segue destination="ih2-Au-WkR" kind="show" identifier="toUpdateDetail" id="m2N-6D-6V4"/>
                                 </connections>
                             </tableViewCell>

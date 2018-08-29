@@ -16,6 +16,7 @@ class TaskListTableViewController: UITableViewController {
     }
     let cellId = "taskCell"
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,6 +28,13 @@ class TaskListTableViewController: UITableViewController {
 
 }
 
+// MARK: - Methods
+extension TaskListTableViewController {
+    func toggleIsComplete(forTask task: Task) {
+        task.isComplete = !task.isComplete
+    }
+}
+
 // MARK: - UITableViewDataSource
 extension TaskListTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -35,11 +43,12 @@ extension TaskListTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TaskListTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ButtonTableViewCell else { return UITableViewCell() }
         
         let task = tasks[indexPath.row]
 
-        cell.task = task
+        cell.delegate = self
+        cell.update(withTask: task)
         
         return cell
     }
@@ -56,6 +65,20 @@ extension TaskListTableViewController {
     }
 }
 
+// MARK: - ButtonTableViewCellDelegate
+extension TaskListTableViewController: ButtonTableViewCellDelegate {
+    
+    func buttonCellButtonTapped(_ sender: ButtonTableViewCell) {
+        
+        guard let indexPath = tableView.indexPath(for: sender) else { return }
+        let task = tasks[indexPath.row]
+        
+        self.toggleIsComplete(forTask: task)
+        
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+}
+
 // MARK: - Navigation
 extension TaskListTableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -64,6 +87,8 @@ extension TaskListTableViewController {
                 let index = tableView.indexPathForSelectedRow?.row else { return }
             
             destinationVC.task = tasks[index]
+            destinationVC.dueDate = tasks[index].due
+            
         }
     }
 }

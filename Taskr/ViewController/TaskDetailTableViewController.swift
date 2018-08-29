@@ -11,8 +11,13 @@ import UIKit
 class TaskDetailTableViewController: UITableViewController {
     
     // MARK: - Properties
-    var task: Task?
-    var dueDate: Date?
+    var task: Task? {
+        didSet {
+            updateView()
+        }
+    }
+    
+    var dueDate: Date? 
     
     // MARK: - Outlets
     @IBOutlet weak var nameTextField: UITextField!
@@ -89,13 +94,6 @@ extension TaskDetailTableViewController {
             
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
-    }
-}
-
-// MARK: - Navigation
-extension TaskDetailTableViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
     }
 }
 

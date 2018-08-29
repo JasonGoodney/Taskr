@@ -10,7 +10,7 @@
 		D757E04C213728EE001819E7 /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757E04B213728EE001819E7 /* TaskController.swift */; };
 		D757E04F21372A68001819E7 /* CRUDable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757E04E21372A68001819E7 /* CRUDable.swift */; };
 		D757E05121372B78001819E7 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757E05021372B78001819E7 /* CoreDataHelper.swift */; };
-		D757E05421373C25001819E7 /* TaskListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757E05321373C25001819E7 /* TaskListTableViewCell.swift */; };
+		D757E05421373C25001819E7 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757E05321373C25001819E7 /* ButtonTableViewCell.swift */; };
 		D757E05721374C05001819E7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757E05621374C05001819E7 /* Constants.swift */; };
 		D757E05921375173001819E7 /* DateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757E05821375173001819E7 /* DateHelpers.swift */; };
 		D757E05B213758B8001819E7 /* DatePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757E05A213758B7001819E7 /* DatePickerDelegate.swift */; };
@@ -29,7 +29,7 @@
 		D757E04B213728EE001819E7 /* TaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
 		D757E04E21372A68001819E7 /* CRUDable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRUDable.swift; sourceTree = "<group>"; };
 		D757E05021372B78001819E7 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
-		D757E05321373C25001819E7 /* TaskListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListTableViewCell.swift; sourceTree = "<group>"; };
+		D757E05321373C25001819E7 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		D757E05621374C05001819E7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D757E05821375173001819E7 /* DateHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelpers.swift; sourceTree = "<group>"; };
 		D757E05A213758B7001819E7 /* DatePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerDelegate.swift; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 		D7DCF47321371437002E4A58 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D757E05321373C25001819E7 /* TaskListTableViewCell.swift */,
+				D757E05321373C25001819E7 /* ButtonTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -232,7 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D757E05421373C25001819E7 /* TaskListTableViewCell.swift in Sources */,
+				D757E05421373C25001819E7 /* ButtonTableViewCell.swift in Sources */,
 				D757E05B213758B8001819E7 /* DatePickerDelegate.swift in Sources */,
 				D757E05721374C05001819E7 /* Constants.swift in Sources */,
 				D757E04C213728EE001819E7 /* TaskController.swift in Sources */,
