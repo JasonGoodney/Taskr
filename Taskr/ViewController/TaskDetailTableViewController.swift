@@ -22,22 +22,30 @@ class TaskDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        updateView()
     }
-    
-    
 }
 
-// MARK: - Actions
+// MARK: - Methods
 extension TaskDetailTableViewController {
-    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
-        
+    func updateView() {
+        if isViewLoaded {
+            guard let task = task, let due = task.due else { return }
+            nameTextField.text = task.name
+            noteTextView.text = task.note
+            datePicker.date = due
+        }
+    }
+    
+    func updateTask() {
         guard let name = nameTextField.text,
-            let note = noteTextView.text else { return }
+            let note = noteTextView.text,
+            let dueDate = dueDate else { return }
         
         let taskDictionary: [String : Any] = [
             TaskController.TaskKey.name : name,
             TaskController.TaskKey.note : note,
-            TaskController.TaskKey.due : datePicker.date
+            TaskController.TaskKey.due : dueDate
         ]
         
         if let task = task {
@@ -45,6 +53,16 @@ extension TaskDetailTableViewController {
         } else {
             TaskController.shared.add(dictionary: taskDictionary)
         }
+    }
+}
+
+// MARK: - Actions
+extension TaskDetailTableViewController {
+    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
+        
+        updateTask()
+        
+        navigationController?.popViewController(animated: true)
     }
 }
 
