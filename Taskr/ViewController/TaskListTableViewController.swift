@@ -27,7 +27,6 @@ class TaskListTableViewController: UITableViewController {
         
         tableView.reloadData()
     }
-
 }
 
 // MARK: - Methods
@@ -90,8 +89,7 @@ extension TaskListTableViewController {
                 let index = tableView.indexPathForSelectedRow?.row else { return }
             
             destinationVC.task = tasks[index]
-            destinationVC.dueDate = tasks[index].due
-            
+            destinationVC.dueDate = tasks[index].due            
         }
     }
 }

@@ -18,6 +18,4 @@ struct CoreDataHelper {
             print("There was an error in \(#function): \(error)\n\(error.localizedDescription)")
         }
     }
-    
-    
 }

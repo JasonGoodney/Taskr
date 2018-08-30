@@ -8,6 +8,8 @@
 
 import UIKit
 
+// FIXME: - Problems with the DatePicker being visible in textField and loading correctly
+
 class TaskDetailTableViewController: UITableViewController {
     
     // MARK: - Properties
@@ -16,7 +18,6 @@ class TaskDetailTableViewController: UITableViewController {
             updateView()
         }
     }
-    
     var dueDate: Date?  {
         get { return task?.due }
         set { task?.due = newValue }

@@ -19,6 +19,5 @@ extension Task {
         self.name = name
         self.note = note
         self.due = due
-        //self.isComplete = isComplete
     }
 }

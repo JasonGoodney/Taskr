@@ -12,5 +12,4 @@ struct Identifier {
     struct Segue {
         static let toUpdateDetail = "toUpdateDetail"
     }
-    
 }
