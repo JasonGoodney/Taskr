@@ -17,7 +17,10 @@ class TaskDetailTableViewController: UITableViewController {
         }
     }
     
-    var dueDate: Date? 
+    var dueDate: Date?  {
+        get { return task?.due }
+        set { task?.due = newValue }
+    }
     
     // MARK: - Outlets
     @IBOutlet weak var nameTextField: UITextField!
@@ -36,16 +39,21 @@ class TaskDetailTableViewController: UITableViewController {
 // MARK: - Methods
 extension TaskDetailTableViewController {
     func updateView() {
-        if isViewLoaded {
-            guard let task = task else { return }
-            nameTextField.text = task.name
-            noteTextView.text = task.note
-            taskDueTextField.text = task.due?.stringValue()
-        }
-        
         tableView.tableFooterView = UIView()
         setupDateTextField()
+        setupNoteTextView()
         hideKeyboardOnTap()
+        
+        guard let task = task else { return }
+        nameTextField.text = task.name
+        noteTextView.text = task.note
+        
+        if let due = task.due {
+            taskDueTextField.text = due.stringValue()
+        } else {
+            taskDueTextField.text = Date().stringValue()
+        }
+        
     }
     
     func updateTask() {
@@ -68,13 +76,18 @@ extension TaskDetailTableViewController {
     
     func setupDateTextField() {
         taskDueTextField.inputView = dueDatePicker
+        guard let dueDate = dueDate else { return }
+        dueDatePicker.date = dueDate
+    }
+    
+    func setupNoteTextView() {
+        noteTextView.addShadow()
     }
 }
 
 // MARK: - Actions
 extension TaskDetailTableViewController {
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
-        
         updateTask()
         
         navigationController?.popViewController(animated: true)
@@ -84,16 +97,6 @@ extension TaskDetailTableViewController {
         
         dueDate = sender.date
         taskDueTextField.text = dueDate?.stringValue()
-    }
-}
-
-// MARK: - UITableViewDelegate
-extension TaskDetailTableViewController {
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
     }
 }
 
@@ -107,6 +110,18 @@ extension UIViewController {
     
     @objc func hideKeyboard() {
         view.endEditing(true)
+    }
+}
+
+// MARK: - UIView Shadow
+extension UIView {
+    func addShadow() {
+        self.layer.masksToBounds = false
+        self.layer.shadowRadius = 3.0
+        self.layer.shadowColor = #colorLiteral(red: 0.676662234, green: 0.676662234, blue: 0.676662234, alpha: 1)
+        self.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        self.layer.shadowOpacity = 1.0
+        self.layer.cornerRadius = 5
     }
 }
 

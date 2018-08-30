@@ -24,6 +24,8 @@ class TaskListTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        tableView.reloadData()
     }
 
 }
@@ -32,6 +34,7 @@ class TaskListTableViewController: UITableViewController {
 extension TaskListTableViewController {
     func toggleIsComplete(forTask task: Task) {
         task.isComplete = !task.isComplete
+        CoreDataHelper.saveToPersistentStore()
     }
 }
 

@@ -26,26 +26,18 @@ class TaskController {
     
     var tasks: [Task] {
         get {
-        let request: NSFetchRequest<Task> = Task.fetchRequest()
-        
-        do {
-            return try CoreDataStack.context.fetch(request)
-        } catch let error {
-            print("There was an error in \(#function): \(error)\n\(error.localizedDescription)")
-        }
-        
-        return []
+            let request: NSFetchRequest<Task> = Task.fetchRequest()
+            
+            do {
+                return try CoreDataStack.context.fetch(request)
+            } catch let error {
+                print("There was an error in \(#function): \(error)\n\(error.localizedDescription)")
+            }
+            return []
         }
         
         set {}
     }
-    
-    var mockTasks: [Task] = [
-        Task(name: "Party"),
-        Task(name: "Second Party", note: "After party", due: Date(), isComplete: true),
-        Task(name: "🎄", note: "TO get 🎁")
-    ]
-    
 }
 
 extension TaskController: CRUDable {
@@ -53,20 +45,21 @@ extension TaskController: CRUDable {
     
     func add(dictionary: [String : Any]) {
         guard let name = dictionary[TaskKey.name] as? String,
-            let note = dictionary[TaskKey.note] as? String,
-            let due = dictionary[TaskKey.due] as? Date else { return }
+            let note = dictionary[TaskKey.note] as? String else { return }
         
-        Task(name: name, note: note, due: due)
+        Task(name: name, note: note)
         CoreDataHelper.saveToPersistentStore()
     }
     
     func update(item: Item, dictionary: [String : Any]) {
         guard let name = dictionary[TaskKey.name] as? String,
             let note = dictionary[TaskKey.note] as? String,
-            let due = dictionary[TaskKey.due] as? Date,
-            let isComplete = dictionary[TaskKey.isComplete] as? Bool else { return }
+            let due = dictionary[TaskKey.due] as? Date else { return }
         
-        Task(name: name, note: note, due: due, isComplete: isComplete)
+        item.name = name
+        item.note = note
+        item.due = due
+        
         CoreDataHelper.saveToPersistentStore()
     }
     
@@ -79,6 +72,15 @@ extension TaskController: CRUDable {
 extension TaskController {
     
     func fetchTasks() -> [Task] {
-        return mockTasks
+        
+        let request: NSFetchRequest<Task> = Task.fetchRequest()
+        
+        do {
+            return try CoreDataStack.context.fetch(request)
+        } catch let error {
+            print("😳\nThere was an error in \(#function): \(error)\n\n\(error.localizedDescription)\n👿")
+        }
+        
+        return[]
     }
 }
