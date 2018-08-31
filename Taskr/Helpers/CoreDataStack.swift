@@ -21,7 +21,7 @@ enum CoreDataStack {
         let container = NSPersistentContainer(name: "Taskr")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                fatalError("Unresolved error \(error), \(error.localizedDescription)")
             }
         })
         

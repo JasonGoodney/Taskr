@@ -8,19 +8,21 @@
 
 import UIKit
 
-// FIXME: - Problems with the DatePicker being visible in textField and loading correctly
-
 class TaskDetailTableViewController: UITableViewController {
     
     // MARK: - Properties
     var task: Task? {
         didSet {
+            loadViewIfNeeded()
             updateView()
         }
     }
-    var dueDate: Date?  {
-        get { return task?.due }
-        set { task?.due = newValue }
+    var dueDate: Date? {
+        get { return task?.due ?? Date() }
+        set (newDate) {
+            guard let task = task else { return }
+            task.due = newDate
+        }
     }
     
     // MARK: - Outlets
@@ -28,39 +30,33 @@ class TaskDetailTableViewController: UITableViewController {
     @IBOutlet weak var dueDatePicker: UIDatePicker!
     @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var taskDueTextField: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateView()
+        self.updateView()
     }
 }
 
-// MARK: - Methods
+// MARK: - Update View
 extension TaskDetailTableViewController {
     func updateView() {
-        tableView.tableFooterView = UIView()
-        setupDateTextField()
-        setupNoteTextView()
+        setupDueDatePicker()
         hideKeyboardOnTap()
         
         guard let task = task else { return }
         nameTextField.text = task.name
         noteTextView.text = task.note
-        
-        if let due = task.due {
-            taskDueTextField.text = due.stringValue()
-        } else {
-            taskDueTextField.text = Date().stringValue()
-        }
-        
+
+        navigationItem.title = task.name ?? "New Task"
     }
     
     func updateTask() {
-        guard let name = nameTextField.text,
-            let note = noteTextView.text,
-            let dueDate = dueDate else { return }
+        guard let name = nameTextField.text, !name.isEmpty,
+            let note = noteTextView.text else { return }
+            let dueDate = dueDatePicker.date
         
         let taskDictionary: [String : Any] = [
             TaskController.TaskKey.name : name,
@@ -75,14 +71,20 @@ extension TaskDetailTableViewController {
         }
     }
     
-    func setupDateTextField() {
-        taskDueTextField.inputView = dueDatePicker
+    func setupDueDatePicker() {
         guard let dueDate = dueDate else { return }
         dueDatePicker.date = dueDate
+        setupDueTextField(with: dueDate)
     }
     
-    func setupNoteTextView() {
-        noteTextView.addShadow()
+    func setupDueTextField(with dueDate: Date) {
+        taskDueTextField.inputView = dueDatePicker
+        taskDueTextField.text = dueDate.stringValue()
+        taskDueTextField.tintColor = .clear
+    }
+    
+    func setupTableView() {
+        tableView.tableFooterView = UIView()
     }
 }
 
@@ -95,9 +97,8 @@ extension TaskDetailTableViewController {
     }
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
-        
+        taskDueTextField.text = sender.date.stringValue()
         dueDate = sender.date
-        taskDueTextField.text = dueDate?.stringValue()
     }
 }
 
@@ -113,16 +114,3 @@ extension UIViewController {
         view.endEditing(true)
     }
 }
-
-// MARK: - UIView Shadow
-extension UIView {
-    func addShadow() {
-        self.layer.masksToBounds = false
-        self.layer.shadowRadius = 3.0
-        self.layer.shadowColor = #colorLiteral(red: 0.676662234, green: 0.676662234, blue: 0.676662234, alpha: 1)
-        self.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        self.layer.shadowOpacity = 1.0
-        self.layer.cornerRadius = 5
-    }
-}
-

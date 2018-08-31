@@ -11,7 +11,8 @@ import Foundation
 extension Date {
     func stringValue() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
         
         return dateFormatter.string(from: self)
     }

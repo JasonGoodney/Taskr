@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class TaskController {
+class TaskController: CRUDable {
     
     enum TaskKey {
         static let name = "name"
@@ -40,7 +40,8 @@ class TaskController {
     }
 }
 
-extension TaskController: CRUDable {
+// MARK: - CRUDable
+extension TaskController {
     typealias Item = Task
     
     func add(dictionary: [String : Any]) {
@@ -69,8 +70,8 @@ extension TaskController: CRUDable {
     }
 }
 
+// MARK: - Methods
 extension TaskController {
-    
     func fetchTasks() -> [Task] {
         
         let request: NSFetchRequest<Task> = Task.fetchRequest()

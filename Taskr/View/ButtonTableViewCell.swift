@@ -38,6 +38,11 @@ extension ButtonTableViewCell {
         primaryLabel.text = task.name
         
         updateButton(task.isComplete)
+        setupLabelStyle()
+    }
+    
+    func setupLabelStyle() {
+        primaryLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
     }
 }
 

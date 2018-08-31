@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskListTableViewController: UITableViewController {
+class TaskListTableViewController: UITableViewController, ButtonTableViewCellDelegate {
 
     // MARK: - Properties
     var tasks: [Task] {
@@ -65,10 +65,14 @@ extension TaskListTableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 64
+    }
 }
 
 // MARK: - ButtonTableViewCellDelegate
-extension TaskListTableViewController: ButtonTableViewCellDelegate {
+extension TaskListTableViewController {
     
     func buttonCellButtonTapped(_ sender: ButtonTableViewCell) {
         
@@ -85,11 +89,10 @@ extension TaskListTableViewController: ButtonTableViewCellDelegate {
 extension TaskListTableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Identifier.Segue.toUpdateDetail {
-            guard let destinationVC = segue.destination as? TaskDetailTableViewController,
-                let index = tableView.indexPathForSelectedRow?.row else { return }
+            let destinationVC = segue.destination as? TaskDetailTableViewController
+            guard let index = tableView.indexPathForSelectedRow?.row else { return }
             
-            destinationVC.task = tasks[index]
-            destinationVC.dueDate = tasks[index].due            
+            destinationVC?.task = tasks[index]
         }
     }
 }
