@@ -12,4 +12,8 @@ struct Identifier {
     struct Segue {
         static let toUpdateDetail = "toUpdateDetail"
     }
+    
+    struct Cell {
+        static let buttonTableViewCell = "buttonTableViewCell"
+    }
 }

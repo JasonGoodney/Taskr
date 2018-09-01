@@ -58,16 +58,13 @@ extension TaskDetailTableViewController {
             let note = noteTextView.text else { return }
             let dueDate = dueDatePicker.date
         
-        let taskDictionary: [String : Any] = [
-            TaskController.TaskKey.name : name,
-            TaskController.TaskKey.note : note,
-            TaskController.TaskKey.due : dueDate
-        ]
-        
         if let task = task {
-            TaskController.shared.update(item: task, dictionary: taskDictionary)
+            task.name = name
+            task.note = note
+            task.due = dueDate
+            TaskController.shared.update()
         } else {
-            TaskController.shared.add(dictionary: taskDictionary)
+            TaskController.shared.addTask(with: name, due: dueDate, note: note)
         }
     }
     
@@ -92,7 +89,7 @@ extension TaskDetailTableViewController {
 extension TaskDetailTableViewController {
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         updateTask()
-        
+    
         navigationController?.popViewController(animated: true)
     }
     

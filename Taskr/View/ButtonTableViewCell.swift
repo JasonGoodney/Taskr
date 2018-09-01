@@ -9,13 +9,18 @@
 import UIKit
 
 protocol ButtonTableViewCellDelegate: class {
-    func buttonCellButtonTapped(_ sender: ButtonTableViewCell)
+    func buttonCellButtonTapped(_ cell: ButtonTableViewCell)
 }
 
 class ButtonTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     weak var delegate: ButtonTableViewCellDelegate?
+    var task: Task? {
+        didSet {
+            updateView()
+        }
+    }
     
     // MARK: - Outlets
     @IBOutlet weak var primaryLabel: UILabel!
@@ -24,33 +29,28 @@ class ButtonTableViewCell: UITableViewCell {
 
 // MARK: - View Update
 extension ButtonTableViewCell {
-
-    func updateButton(_ isComplete: Bool) {
-        
-        if isComplete {
-            completeButton.setTitle("🙌", for: .normal)
-        } else {
-            completeButton.setTitle("🐴", for: .normal)
-        }
-    }
-    
-    func update(withTask task: Task) {
+    func updateView() {
+        guard let task = task else { return }
         primaryLabel.text = task.name
         
-        updateButton(task.isComplete)
-        setupLabelStyle()
+        updateButton(from: task)
     }
     
-    func setupLabelStyle() {
-        primaryLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+    func updateButton(from task: Task) {
+        if task.isComplete {
+            completeButton.setTitle("🙌", for: .normal)
+            primaryLabel.textColor = .lightGray
+        } else {
+            completeButton.setTitle("🐴", for: .normal)
+            primaryLabel.textColor = .black
+        }
+
     }
 }
 
 // MARK: - Actions
 extension ButtonTableViewCell {
     @IBAction func buttonTapped(_ sender: UIButton) {
-        if let delegate = delegate {
-            delegate.buttonCellButtonTapped(self)
-        }
+        delegate?.buttonCellButtonTapped(self)
     }
 }
