@@ -39,8 +39,10 @@ class TaskController: NotificationScheduler {
     func update(_ task: Task) {
         saveToPersistentStore()
         cancelUserNotifications(for: task)
-        scheduleUserNotifications(for: task)
         
+        if !task.isComplete {
+            scheduleUserNotifications(for: task)
+        }
     }
     
     func delete(task: Task) {

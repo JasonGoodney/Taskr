@@ -10,8 +10,6 @@ import Foundation
 import UserNotifications
 
 protocol NotificationScheduler {
-    //var object: Task
-    
     func scheduleUserNotifications(for task: Task)
     func cancelUserNotifications(for task: Task)
 }
