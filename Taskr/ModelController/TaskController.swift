@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class TaskController {
+class TaskController: NotificationScheduler {
     
     static let shared = TaskController() ; private init() {}
     
@@ -19,7 +19,7 @@ class TaskController {
             NSSortDescriptor(key: "isComplete", ascending: true),
             NSSortDescriptor(key: "due", ascending: true)
         ]
-        return NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: "isComplete", cacheName: nil)
+        return NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
     }()
     
     private func saveToPersistentStore() {
@@ -31,18 +31,24 @@ class TaskController {
     }
     
     func addTask(with name: String, due: Date?, note: String?) {
-        Task(name: name, note: note, due: due)
+        let task = Task(name: name, note: note, due: due)
         saveToPersistentStore()
+        scheduleUserNotifications(for: task)
     }
     
-    func update() {
+    func update(_ task: Task) {
         saveToPersistentStore()
+        cancelUserNotifications(for: task)
+        scheduleUserNotifications(for: task)
+        
     }
     
     func delete(task: Task) {
+        cancelUserNotifications(for: task)
         CoreDataStack.context.delete(task)
         saveToPersistentStore()
     }
 }
+
 
 

@@ -16,4 +16,11 @@ extension Date {
         
         return dateFormatter.string(from: self)
     }
+    
+    func toString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        
+        return dateFormatter.string(from: self)
+    }
 }

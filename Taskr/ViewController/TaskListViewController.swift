@@ -24,6 +24,8 @@ class TaskListViewController: UIViewController {
         super.viewDidLoad()
 
         TaskController.shared.fetchResultsController.delegate = self
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,21 +67,17 @@ extension TaskListViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension TaskListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let sectionInfo = TaskController.shared.fetchResultsController.sections?[section] else {
-            return nil
-        }
-
-        return sectionInfo.name == "0" ? "Nay" : "Yay"
-    }
-    
+extension TaskListViewController: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let task = tasks[indexPath.row]
             
             TaskController.shared.delete(task: task)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
 }
 
@@ -89,7 +87,7 @@ extension TaskListViewController: ButtonTableViewCellDelegate {
         guard let task = cell.task else { return }
         task.isComplete = !task.isComplete
         cell.updateButton(from: task)
-        TaskController.shared.update()
+        TaskController.shared.update(task)
     }
 }
 

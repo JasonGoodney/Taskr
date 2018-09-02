@@ -11,6 +11,7 @@
 		D757E05421373C25001819E7 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757E05321373C25001819E7 /* ButtonTableViewCell.swift */; };
 		D757E05721374C05001819E7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757E05621374C05001819E7 /* Constants.swift */; };
 		D757E05921375173001819E7 /* DateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D757E05821375173001819E7 /* DateHelpers.swift */; };
+		D77A80B3213B4D4000BD2DDF /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77A80B2213B4D4000BD2DDF /* NotificationScheduler.swift */; };
 		D7DACB512139FED500DFDD0B /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DACB502139FED500DFDD0B /* TaskListViewController.swift */; };
 		D7DCF45E21371400002E4A58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DCF45D21371400002E4A58 /* AppDelegate.swift */; };
 		D7DCF46321371400002E4A58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7DCF46121371400002E4A58 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 		D757E05321373C25001819E7 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		D757E05621374C05001819E7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D757E05821375173001819E7 /* DateHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelpers.swift; sourceTree = "<group>"; };
+		D77A80B2213B4D4000BD2DDF /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		D7DACB502139FED500DFDD0B /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		D7DCF45A21371400002E4A58 /* Taskr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taskr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7DCF45D21371400002E4A58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 		D757E04D21372A58001819E7 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				D77A80B2213B4D4000BD2DDF /* NotificationScheduler.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				D757E04C213728EE001819E7 /* TaskController.swift in Sources */,
 				D7DCF47D2137263B002E4A58 /* Taskr.xcdatamodeld in Sources */,
 				D7DACB512139FED500DFDD0B /* TaskListViewController.swift in Sources */,
+				D77A80B3213B4D4000BD2DDF /* NotificationScheduler.swift in Sources */,
 				D7DCF45E21371400002E4A58 /* AppDelegate.swift in Sources */,
 				D7DCF47821372435002E4A58 /* TaskDetailTableViewController.swift in Sources */,
 				D757E05921375173001819E7 /* DateHelpers.swift in Sources */,

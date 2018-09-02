@@ -62,7 +62,7 @@ extension TaskDetailTableViewController {
             task.name = name
             task.note = note
             task.due = dueDate
-            TaskController.shared.update()
+            TaskController.shared.update(task)
         } else {
             TaskController.shared.addTask(with: name, due: dueDate, note: note)
         }

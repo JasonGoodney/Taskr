@@ -25,6 +25,7 @@ class ButtonTableViewCell: UITableViewCell {
     // MARK: - Outlets
     @IBOutlet weak var primaryLabel: UILabel!
     @IBOutlet weak var completeButton: UIButton!
+    @IBOutlet weak var dueDateLabel: UILabel!
 }
 
 // MARK: - View Update
@@ -32,6 +33,7 @@ extension ButtonTableViewCell {
     func updateView() {
         guard let task = task else { return }
         primaryLabel.text = task.name
+        dueDateLabel.text = task.due?.toString()
         
         updateButton(from: task)
     }
@@ -42,7 +44,7 @@ extension ButtonTableViewCell {
             primaryLabel.textColor = .lightGray
         } else {
             completeButton.setTitle("🐴", for: .normal)
-            primaryLabel.textColor = .black
+            primaryLabel.textColor = .darkGray
         }
 
     }
