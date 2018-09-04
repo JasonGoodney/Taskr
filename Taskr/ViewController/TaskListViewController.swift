@@ -57,7 +57,7 @@ extension TaskListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.Cell.buttonTableViewCell, for: indexPath) as? ButtonTableViewCell
-        let task = tasks[indexPath.row]
+        let task = TaskController.shared.fetchResultsController.object(at: indexPath)
         
         cell?.delegate = self
         cell?.task = task
@@ -73,6 +73,21 @@ extension TaskListViewController: UITableViewDelegate {
             let task = tasks[indexPath.row]
             
             TaskController.shared.delete(task: task)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let sectionInfo = TaskController.shared.fetchResultsController.sections?[section] else {
+            return nil
+        }
+        
+        switch sectionInfo.name {
+        case "0":
+            return "Nay"
+        case "1":
+            return "Yay"
+        default:
+            return "🤷‍♂️"
         }
     }
     
@@ -93,6 +108,14 @@ extension TaskListViewController: ButtonTableViewCellDelegate {
 
 // MARK: - NSFetchedResultsControllerDelegate
 extension TaskListViewController: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .delete:

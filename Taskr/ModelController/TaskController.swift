@@ -19,7 +19,7 @@ class TaskController: NotificationScheduler {
             NSSortDescriptor(key: "isComplete", ascending: true),
             NSSortDescriptor(key: "due", ascending: true)
         ]
-        return NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
+        return NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: "isComplete", cacheName: nil)
     }()
     
     private func saveToPersistentStore() {
